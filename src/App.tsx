@@ -1,23 +1,14 @@
-import { useState } from 'react';
-import HomePage from './components/HomePage';
-import QuestionPage from './components/QuestionPage';
-import { GradeSection } from './lib/supabase';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import QuestionPage from "./pages/QuestionPage";
 
-function App() {
-  const [selectedGrade, setSelectedGrade] = useState<GradeSection | null>(null);
-
+export default function App() {
   return (
-    <>
-      {selectedGrade ? (
-        <QuestionPage
-          gradeSection={selectedGrade}
-          onBack={() => setSelectedGrade(null)}
-        />
-      ) : (
-        <HomePage onSelectGrade={setSelectedGrade} />
-      )}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/quiz/:gradeId" element={<QuestionPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
